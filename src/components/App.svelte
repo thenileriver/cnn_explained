@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
 
@@ -121,16 +121,10 @@
         .attr('x', 0)
         .attr('y', -20)
         .text(layer.label)
+        .style('fill', 'white')
         .attr('text-anchor', 'middle');
     });
   });
-  let selectedArchitecture = "AlexNet";
-
-  const architectures = ["AlexNet", "VGG16", "ResNet", "Inception"];
-
-  function handleArchitectureChange(event) {
-      selectedArchitecture = event.target.value;
-  }
 </script>
 
 <style>
@@ -228,9 +222,10 @@
     font-size: 14px;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
-    fill: #333;
+    fill: "white";
     pointer-events: none;
   }
+
 </style>
 
 <div class="container">
