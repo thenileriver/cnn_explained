@@ -124,6 +124,13 @@
         .attr('text-anchor', 'middle');
     });
   });
+  let selectedArchitecture = "AlexNet";
+
+  const architectures = ["AlexNet", "VGG16", "ResNet", "Inception"];
+
+  function handleArchitectureChange(event) {
+      selectedArchitecture = event.target.value;
+  }
 </script>
 
 <style>
@@ -224,7 +231,6 @@
     fill: #333;
     pointer-events: none;
   }
-
 </style>
 
 <div class="container">
