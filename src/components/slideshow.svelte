@@ -13,7 +13,7 @@
         text: "Step 1: Image after initial processing."
       },
       {
-        image: "/path/to/processed/image2.png", // Update with the correct path
+        image: "path", // Update with the correct path
         text: "Step 2: Image after further processing."
       },
       // Add more slides as needed

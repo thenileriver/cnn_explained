@@ -2,6 +2,10 @@
   import Slideshow from './slideshow.svelte';
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import ConvolutionLayerPopup from './CL.svelte';
+  import Hidden1Popup from './HL1.svelte';
+  import Hidden2Popup from './HL2.svelte';
+  import OutputPopup from './OL.svelte';
 
   const layers = [
     { id: 'input_image', nodes: 1, label: 'Input Image' },
@@ -13,6 +17,18 @@
 
   let svgWidth = 800;
   let svgHeight = 600;
+
+  let showConvolutionPopup = false;
+  let showHidden1Popup = false;
+  let showHidden2Popup = false;
+  let showOutputPopup = false;
+
+  function closePopups() {
+    showConvolutionPopup = false;
+    showHidden1Popup = false;
+    showHidden2Popup = false;
+    showOutputPopup = false;
+  }
 
   onMount(() => {
     const svg = d3.select('#cnn-vis');
@@ -63,46 +79,22 @@
         .attr('height', 20)
         .attr('fill', '#00A1E4')
         .attr('cursor', 'pointer')
-        .on('mouseover', function(event, d) {
-          const circle = d3.select(this);
-
-          d3.selectAll('circle')
-            .classed('clicked', false)
-            .style('fill', '#00A1E4');
-
-          d3.selectAll('line')
-            .classed('highlighted', false)
-            .style('stroke', 'lightgray')
-            .style('stroke-width', 1);
-
-          circle.classed('clicked', true)
-                .style('fill', '#00ffff');
-
-          const nodeIndex = d;
-          const layerIndex = i;
-
-          if (layerIndex > 0) {
-            for (let k = 0; k < layers[layerIndex - 1].nodes; k++) {
-              d3.selectAll(`.line-from-${layerIndex-1}-${k}-to-${layerIndex}-${nodeIndex}`)
-                .classed('highlighted', true)
-                .style('stroke', '#00ffff')
-                .style('stroke-width', 2);
-            }
+        .on('click', function(event, d) {
+          closePopups();
+          switch(layer.label) {
+            case 'Convolution Layer':
+              showConvolutionPopup = true;
+              break;
+            case 'Hidden Layer 1':
+              showHidden1Popup = true;
+              break;
+            case 'Hidden Layer 2':
+              showHidden2Popup = true;
+              break;
+            case 'Output Layer':
+              showOutputPopup = true;
+              break;
           }
-        })
-        .on('mouseout', function(event, d) {
-          const circle = d3.select(this);
-
-          circle.classed('clicked', false)
-                .style('fill', '#00A1E4');
-
-          const nodeIndex = d;
-          const layerIndex = i;
-
-          d3.selectAll('.highlighted')
-            .classed('highlighted', false)
-            .style('stroke', 'lightgray')
-            .style('stroke-width', 1);
         })
         .append('image')
         .attr('x', 0)
@@ -122,29 +114,29 @@
 </script>
 
 <style>
-.visualization {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px; /* Adjust the height as needed */
-  font-size: 1.2rem;
-}
+  .visualization {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px; /* Adjust the height as needed */
+    font-size: 1.2rem;
+  }
 
-line {
-  stroke: none; /* Remove border */
-}
+  line {
+    stroke: none; /* Remove border */
+  }
 
-circle {
-  stroke: none; /* Remove border */
-}
+  circle {
+    stroke: none; /* Remove border */
+  }
 
-text {
-  font-size: 14px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 600; /* Semi-bold text */
-  fill: white; /* Update text color to white */
-  pointer-events: none;
-}
+  text {
+    font-size: 14px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600; /* Semi-bold text */
+    fill: white; /* Update text color to white */
+    pointer-events: none;
+  }
 </style>
 
 <div class="visualization-container">
@@ -153,3 +145,8 @@ text {
     <svg id="cnn-vis" width="800" height="600"></svg>
   </div>
 </div>
+
+<ConvolutionLayerPopup show={showConvolutionPopup} onClose={closePopups} />
+<Hidden1Popup show={showHidden1Popup} onClose={closePopups} />
+<Hidden2Popup show={showHidden2Popup} onClose={closePopups} />
+<OutputPopup show={showOutputPopup} onClose={closePopups} />
