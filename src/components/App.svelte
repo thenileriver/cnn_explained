@@ -14,12 +14,17 @@
       selectedArchitecture = event.target.value;
   }
 
+  // Update the layers array to include the new layer
   const layers = [
-    { id: 'input', nodes: 4, label: 'Input Layer' },
+    { id: 'input_image', nodes: 1, label: 'Input Image' }, // New layer with one node
+    { id: 'input', nodes: 4, label: 'Convolution Layer' },
     { id: 'hidden1', nodes: 6, label: 'Hidden Layer 1' },
     { id: 'hidden2', nodes: 6, label: 'Hidden Layer 2' },
     { id: 'output', nodes: 2, label: 'Output Layer' }
   ];
+
+  let svgWidth = 800;
+  let svgHeight = 600;
 
   onMount(() => {
     const svg = d3.select('#cnn-vis');
@@ -44,10 +49,10 @@
       for (let j = 0; j < currentLayer.nodes; j++) {
         for (let k = 0; k < nextLayer.nodes; k++) {
           svg.append('line')
-            .attr('x1', currentLayer.x)
-            .attr('y1', currentLayer.y + j * nodeSpacing)
-            .attr('x2', nextLayer.x)
-            .attr('y2', nextLayer.y + k * nodeSpacing)
+            .attr('x1', currentLayer.x + 20) // Adjusted to start from the middle of the right side of the square
+            .attr('y1', currentLayer.y + j * nodeSpacing + nodeSpacing / 4) // Adjusted to start from the middle of the right side of the square
+            .attr('x2', nextLayer.x) // Adjusted to end at the middle of the left side of the square
+            .attr('y2', nextLayer.y + k * nodeSpacing + nodeSpacing / 4) // Adjusted to end at the middle of the left side of the square
             .attr('stroke', 'lightgray')
             .attr('stroke-width', 1)
             .classed(`line-from-${i}-${j}-to-${i+1}-${k}`, true);
@@ -60,14 +65,17 @@
       const group = svg.append('g')
         .attr('transform', `translate(${layerCenters[i].x}, ${layerCenters[i].y})`);
 
-      group.selectAll('circle')
+      group.selectAll('g')
         .data(d3.range(layer.nodes))
         .enter()
-        .append('circle')
-        .attr('cx', 0)
-        .attr('cy', (d, index) => index * nodeSpacing)
-        .attr('r', 10)
-        .style('fill', '#00A1E4') // OpenAI's blue
+        .append('g')
+        .attr('transform', (d, index) => `translate(0, ${index * nodeSpacing})`)
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', 20)
+        .attr('height', 20)
+        .attr('fill', '#00A1E4')
         .attr('cursor', 'pointer')
         .on('mouseover', function(event, d) {
           const circle = d3.select(this);
@@ -116,7 +124,13 @@
             .classed('highlighted', false)
             .style('stroke', 'lightgray')
             .style('stroke-width', 1);
-        });
+        })
+        .append('image')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', 20)
+        .attr('height', 20)
+        .attr('href', 'path_to_node_image.jpg');
 
       group.append('text')
         .attr('x', 0)
@@ -160,8 +174,7 @@ h1 span {
 }
 
 h1 span::first-letter {
-  font-size: 4rem; /* Adjust size for first letter of each word */
-  font-weight: 600; /* Bolder first letter */
+  font-size: 4.5rem; /* Adjust size as needed */
 }
 
 h2 {
@@ -169,7 +182,7 @@ h2 {
   font-size: 2rem; /* Larger font size */
   margin-bottom: 10px; /* Reduced margin */
   font-weight: 300; /* Lighter font weight */
-  margin-top: 80px; /* Move h2 lower to prevent interference with h1 */
+  margin-top: 20px; /* Move h2 lower to prevent interference with h1 */
 }
 
 .section {
@@ -234,11 +247,14 @@ text {
 
 <div class="container">
   <h1>
-    <span>Convolutional</span> <span>Neural</span> <span>Networks</span>
+    <span>Convolutional</span><br>
+    <span>Neural</span><br>
+    <span>Network</span><br>
   </h1>
   <div class="section">
     <div class="visualization">
-      <svg id="cnn-vis" width="800" height="600"></svg>
+      <svg id="cnn-vis" style="width: {svgWidth}px; height: {svgHeight}px">
+      </svg>
     </div>
   </div>
 
