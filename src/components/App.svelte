@@ -11,10 +11,10 @@
   const architectures = ["AlexNet", "VGG16", "ResNet", "Inception"];
 
   const architectureImages = {
-    "AlexNet": "AlexNet_architecture.png",
-    "VGG16": "VGG16_architecture.png",
-    "ResNet": "ResNet_architecture.png",
-    "Inception": "Inception_architecture.png"
+    "AlexNet": "static/AlexNet_architecture.png",
+    "VGG16": "static/VGG16_architecture.png",
+    "ResNet": "static/ResNet_architecture.png",
+    "Inception": "static/Inception_architecture.png"
   };
 
   function handleArchitectureChange(event) {
