@@ -114,10 +114,18 @@
 </script>
 
 <style>
+  .visualization-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
   .visualization {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     height: 600px; /* Adjust the height as needed */
     font-size: 1.2rem;
   }
@@ -133,8 +141,8 @@
   text {
     font-size: 14px;
     font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 600; /* Semi-bold text */
-    fill: white; /* Update text color to white */
+    font-weight: 600;
+    fill: white; 
     pointer-events: none;
   }
 </style>
@@ -142,7 +150,7 @@
 <div class="visualization-container">
   <Slideshow />
   <div class="visualization">
-    <svg id="cnn-vis" width="800" height="600"></svg>
+    <svg id="cnn-vis" width="100%" height="600"></svg>
   </div>
 </div>
 

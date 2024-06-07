@@ -103,7 +103,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 600px; /* Adjust the height as needed */
+    height: 600px;
+    width: 100%;
     font-size: 1.2rem;
     flex-direction: column;
   }
