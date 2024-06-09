@@ -6,47 +6,136 @@
   
     onMount(() => {
       const width = 1200;
-      const height = 400;
-  
+      const height = 800;
+
       const layers = [
-        { type: 'conv', x: 10, y: 50, width: 100, height: 100, label: 'Conv1\n96x11x11\nstride=4\npad=0' },
-        { type: 'pool', x: 120, y: 75, width: 100, height: 50, label: 'Max Pool\n3x3\nstride=2\npad=0' },
-        { type: 'conv', x: 230, y: 50, width: 100, height: 100, label: 'Conv2\n256x5x5\nstride=1\npad=2' },
-        { type: 'pool', x: 340, y: 75, width: 100, height: 50, label: 'Max Pool\n3x3\nstride=2\npad=0' },
-        { type: 'conv', x: 450, y: 50, width: 100, height: 100, label: 'Conv3\n384x3x3\nstride=1\npad=1' },
-        { type: 'conv', x: 560, y: 50, width: 100, height: 100, label: 'Conv4\n384x3x3\nstride=1\npad=1' },
-        { type: 'conv', x: 670, y: 50, width: 100, height: 100, label: 'Conv5\n256x3x3\nstride=1\npad=1' },
-        { type: 'pool', x: 780, y: 75, width: 100, height: 50, label: 'Max Pool\n3x3\nstride=2\npad=0' },
-        { type: 'fc', x: 890, y: 25, width: 50, height: 150, label: 'FC\n4096' },
-        { type: 'fc', x: 950, y: 25, width: 50, height: 150, label: 'FC\n4096' },
-        { type: 'softmax', x: 1010, y: 25, width: 50, height: 150, label: 'Softmax\n1000' }
+        { type: 'input', x: 50, y: 50, width: 100, height: 100, label: 'Input\n227x227x3' },
+        { type: 'conv', x: 200, y: 50, width: 100, height: 100, label: 'CONV\n11x11,\nstride=4|\n96 kernels' },
+        { type: 'pool', x: 350, y: 75, width: 100, height: 50, label: 'Overlapping\nMax POOL\n3x3,\nstride=2' },
+        { type: 'conv', x: 500, y: 50, width: 100, height: 100, label: 'CONV\n5x5,pad=2| \n256 kernels' },
+        { type: 'pool', x: 650, y: 75, width: 100, height: 50, label: 'Overlapping\nMax POOL\n3x3,\nstride=2' },
+        { type: 'conv', x: 50, y: 200, width: 100, height: 100, label: 'CONV\n3x3,pad=1| \n384 kernels' },
+        { type: 'conv', x: 200, y: 200, width: 100, height: 100, label: 'CONV\n3x3,pad=1| \n384 kernels' },
+        { type: 'conv', x: 350, y: 200, width: 100, height: 100, label: 'CONV\n3x3,pad=1| \n256 kernels' },
+        { type: 'pool', x: 500, y: 225, width: 100, height: 50, label: 'Overlapping\nMax POOL\n3x3,\nstride=2' },
+        { type: 'fc', x: 650, y: 175, width: 50, height: 200, label: 'FC\n4096' },
+        { type: 'fc', x: 750, y: 175, width: 50, height: 200, label: 'FC\n4096' },
+        { type: 'softmax', x: 850, y: 225, width: 50, height: 100, label: '1000\nSoftmax' }
       ];
-  
-      const svgElement = d3.select(svg)
+
+      const svg = d3.select('#svg-container')
+        .append('svg')
         .attr('width', width)
         .attr('height', height);
-  
-      const layerGroup = svgElement.selectAll('g')
-        .data(layers)
-        .enter()
-        .append('g')
-        .attr('transform', d => `translate(${d.x}, ${d.y})`);
-  
-      layerGroup.append('rect')
-        .attr('width', d => d.width)
-        .attr('height', d => d.height)
-        .attr('fill', d => d.type === 'conv' ? 'orange' : d.type === 'pool' ? 'lightblue' : d.type === 'fc' ? 'green' : 'purple')
-        .attr('stroke', '#000')
-        .attr('stroke-width', 2);
-  
-      layerGroup.append('text')
-        .attr('x', 5)
-        .attr('y', 20)
-        .attr('fill', 'white')
-        .attr('font-size', '10px')
-        .attr('dy', '.35em')
-        .text(d => d.label)
-        .call(wrap, 90); // Wrap text within 90px width
+
+      // Define gradients
+      const defs = svg.append('defs');
+
+      const gradientColors = {
+        'input': ['#0000ff', '#0000aa'],
+        'conv': ['#ff8c00', '#ff4500'],
+        'pool': ['#add8e6', '#87ceeb'],
+        'fc': ['#ff8c00', '#ff4500'],
+        'softmax': ['#008000', '#006400']
+      };
+
+      Object.keys(gradientColors).forEach(type => {
+        const gradient = defs.append('linearGradient')
+          .attr('id', `${type}-gradient`)
+          .attr('x1', '0%')
+          .attr('y1', '0%')
+          .attr('x2', '100%')
+          .attr('y2', '100%');
+
+        gradient.append('stop')
+          .attr('offset', '0%')
+          .attr('style', `stop-color:${gradientColors[type][0]};stop-opacity:1`);
+
+        gradient.append('stop')
+          .attr('offset', '100%')
+          .attr('style', `stop-color:${gradientColors[type][1]};stop-opacity:1`);
+      });
+
+      layers.forEach(layer => {
+        if (layer.type === 'input' || layer.type === 'conv' || layer.type === 'pool' || layer.type === 'fc' || layer.type === 'softmax') {
+          svg.append('rect')
+            .attr('x', layer.x)
+            .attr('y', layer.y + 100) // Adjusted by adding 100
+            .attr('width', layer.width)
+            .attr('height', layer.height)
+            .attr('fill', `url(#${layer.type}-gradient)`)
+            .attr('stroke', 'black');
+        }
+
+        svg.append('text')
+          .attr('x', layer.x + layer.width / 2) // Center text horizontally
+          .attr('y', layer.y + 95) // Adjusted by adding 100 (and subtracting 5 as before)
+          .attr('dy', '.35em')
+          .attr('text-anchor', 'middle')
+          .text(layer.label)
+          .style('font-size', '10px')
+          .style('fill', 'white'); // Change text color to white
+      });
+
+      // Add circles inside the FC and softmax layers
+      const circleData = [
+        { x: 675, y: 200, radius: 10 },
+        { x: 675, y: 250, radius: 10 },
+        { x: 675, y: 300, radius: 10 },
+        { x: 675, y: 350, radius: 10 },
+        { x: 775, y: 200, radius: 10 },
+        { x: 775, y: 250, radius: 10 },
+        { x: 775, y: 300, radius: 10 },
+        { x: 775, y: 350, radius: 10 },
+        { x: 875, y: 250, radius: 10 },
+        { x: 875, y: 300, radius: 10 }
+      ];
+
+      circleData.forEach(circle => {
+        svg.append('circle')
+          .attr('cx', circle.x)
+          .attr('cy', circle.y + 100) // Adjusted by adding 100
+          .attr('r', circle.radius)
+          .attr('fill', 'white')
+          .attr('stroke', 'black');
+      });
+
+      // Add arrows and lines to connect the elements
+      const arrowData = [
+        { x1: 150, y1: 100, x2: 200, y2: 100 },
+        { x1: 300, y1: 100, x2: 350, y2: 100 },
+        { x1: 450, y1: 100, x2: 500, y2: 100 },
+        { x1: 600, y1: 100, x2: 650, y2: 100 },
+        { x1: 750, y1: 100, x2: 800, y2: 100 },
+        { x1: 150, y1: 250, x2: 200, y2: 250 },
+        { x1: 300, y1: 250, x2: 350, y2: 250 },
+        { x1: 450, y1: 250, x2: 500, y2: 250 },
+        { x1: 600, y1: 250, x2: 650, y2: 250 },
+        { x1: 700, y1: 250, x2: 750, y2: 250 },
+        { x1: 800, y1: 250, x2: 850, y2: 250 }
+      ];
+
+      arrowData.forEach(arrow => {
+        svg.append('line')
+          .attr('x1', arrow.x1)
+          .attr('y1', arrow.y1 + 100) // Adjusted by adding 100
+          .attr('x2', arrow.x2)
+          .attr('y2', arrow.y2 + 100) // Adjusted by adding 100
+          .attr('stroke', 'white')
+          .attr('marker-end', 'url(#arrow)');
+      });
+
+      svg.append('defs').append('marker')
+        .attr('id', 'arrow')
+        .attr('viewBox', '0 0 10 10')
+        .attr('refX', '5')
+        .attr('refY', '5')
+        .attr('markerWidth', '6')
+        .attr('markerHeight', '6')
+        .attr('orient', 'auto-start-reverse')
+        .append('path')
+        .attr('d', 'M 0 0 L 10 5 L 0 10 z')
+        .attr('fill', 'white');
     });
   
     function wrap(text, width) {
@@ -76,11 +165,16 @@
     }
   </script>
   
-  <svg bind:this={svg}></svg>
+  <div id="svg-container"></div>
   
   <style>
-    svg {
-      border: 1px solid #ccc;
+    #svg-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: black;
+      margin-top: 150px; /* Added to move the background down */
     }
     text {
       pointer-events: none;
