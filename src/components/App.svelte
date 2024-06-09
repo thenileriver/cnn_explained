@@ -6,13 +6,11 @@
 
   let selectedArchitecture = "AlexNet";
 
-  const architectures = ["AlexNet", "VGG16", "ResNet", "Inception"];
+  const architectures = ["AlexNet", "VGG16"];
 
   const architectureImages = {
     "AlexNet": "AlexNet_architecture.png",
-    "VGG16": "VGG16_architecture.png",
-    "ResNet": "ResNet_architecture.png",
-    "Inception": "Inception_architecture.png"
+    "VGG16": "VGG16_architecture.png"
   };
 
   function handleArchitectureChange(event) {
@@ -189,11 +187,10 @@
           Output Layer FC8: 1000 neurons corresponding to the 1000 classes in the ImageNet dataset which this mode was trained on with Softmax activation, this layer provides the final predictions<br><br>
         </p>
       {:else if selectedArchitecture === 'VGG16'}
-        <VGG16Viz /> <!-- Display VGG16Viz component for VGG16 -->
-      {:else if selectedArchitecture === 'ResNet'}
-        <img src="ResNet_architecture.png" alt="ResNet" />
-      {:else if selectedArchitecture === 'Inception'}
-        <img src="Inception_architecture.png" alt="Inception" />
+        <VGG16Viz />
+        <p>
+          The VGG16 architecture was developed at Oxford University, and excels at its accracy to computational cost ratio. Despite taking more simpler approaches, it achieves similar accuracy to more "complex" models.
+        </p>
       {/if}
     </div>
   </div>
