@@ -97,14 +97,14 @@
     <h3>Image Transformation</h3>
         <div class="images-transformation">
             <div class="image-column">
-                <img src="/6_HL2.png" alt="Original 6" />
+                <img src="6_HL2.png" alt="Original 6" />
                 <div class="arrow">↓</div>
-                <img src="/6_OL.png" alt="Transformed 6" />
+                <img src="6_OL.png" alt="Transformed 6" />
             </div>
             <div class="image-column">
-                <img src="/0_HL2.png" alt="Original 0" />
+                <img src="0_HL2.png" alt="Original 0" />
                 <div class="arrow">↓</div>
-                <img src="/0_OL.png" alt="Transformed 0" />
+                <img src="0_OL.png" alt="Transformed 0" />
             </div>
         </div>
         <p>This is the result from transforming the output from HL2, which was of length 64, into the length of the number of classes. In this 
