@@ -5,6 +5,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Visualization from './cnn_viz.svelte';
+  import AlexNetViz from './AlexNetViz.svelte'; // Import the AlexNetViz component
 
   let selectedArchitecture = "AlexNet";
 
@@ -136,8 +137,15 @@
     </div>
     <div class="visualization">
       <p>Selected Architecture: {selectedArchitecture}</p>
-      {#if architectureImages[selectedArchitecture]}
-        <img src={architectureImages[selectedArchitecture]} alt={selectedArchitecture} />
+      {#if selectedArchitecture === 'AlexNet'}
+        <AlexNetViz /> <!-- Display AlexNetViz component for AlexNet -->
+        <!-- <img src="AlexNet_architecture.png" alt="AlexNet" /> --> <!-- Commented out static image -->
+      {:else if selectedArchitecture === 'VGG16'}
+        <img src="VGG16_architecture.png" alt="VGG16" />
+      {:else if selectedArchitecture === 'ResNet'}
+        <img src="ResNet_architecture.png" alt="ResNet" />
+      {:else if selectedArchitecture === 'Inception'}
+        <img src="Inception_architecture.png" alt="Inception" />
       {/if}
     </div>
   </div>
