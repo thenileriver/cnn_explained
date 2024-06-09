@@ -2,6 +2,7 @@
   import Slideshow from './slideshow.svelte';
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import InputPopup from './Input.svelte';
   import ConvolutionLayerPopup from './CL.svelte';
   import Hidden1Popup from './HL1.svelte';
   import Hidden2Popup from './HL2.svelte';
@@ -18,12 +19,14 @@
   let svgWidth = 800;
   let svgHeight = 600;
 
+  let showInputPopup = false;
   let showConvolutionPopup = false;
   let showHidden1Popup = false;
   let showHidden2Popup = false;
   let showOutputPopup = false;
 
   function closePopups() {
+    showInputPopup = false;
     showConvolutionPopup = false;
     showHidden1Popup = false;
     showHidden2Popup = false;
@@ -82,6 +85,9 @@
         .on('click', function(event, d) {
           closePopups();
           switch(layer.label) {
+            case 'Input Image':
+              showInputPopup = true;
+              break;
             case 'Convolution Layer':
               showConvolutionPopup = true;
               break;
@@ -154,6 +160,7 @@
   </div>
 </div>
 
+<InputPopup show={showInputPopup} onClose={closePopups} />
 <ConvolutionLayerPopup show={showConvolutionPopup} onClose={closePopups} />
 <Hidden1Popup show={showHidden1Popup} onClose={closePopups} />
 <Hidden2Popup show={showHidden2Popup} onClose={closePopups} />

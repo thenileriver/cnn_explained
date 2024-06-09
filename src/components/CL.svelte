@@ -8,6 +8,7 @@
         <div class="close" on:click={onClose}>✖</div>
         <h2>Convolutional Layer Explanation</h2>
         <h3>Code Representation</h3>
+        <p>This is a simple CNN architecture. The code that is not green is where convolutions are relevant.</p>
         <pre>
             <code>
               import torch
@@ -94,48 +95,92 @@
                 12 14
             </code>
         </pre>
-        <p>This hypothetical 3x3 matrix would be a portion of the overall image. We run through the entire image in 3x3 portions, and transform that portion into 2x2 portions.
-            By doing so, we reduce the overall complexity of the image, allowing the model to capture distinct features.
+        <p>This hypothetical 3x3 matrix would be a portion of the overall image. We run through the entire image in 3x3 portions, and 
+            transform that portion into 2x2 portions. By doing so, we reduce the overall complexity of the image, allowing the model 
+            to capture distinct features.
+        </p>
+
+        <h3>Image Transformation</h3>
+        <div class="images-transformation">
+            <div class="image-column">
+                <img src="/og_6.png" alt="Original 6" />
+                <div class="arrow">↓</div>
+                <img src="/6_CL.png" alt="Transformed 6" />
+            </div>
+            <div class="image-column">
+                <img src="/og_0.png" alt="Original 0" />
+                <div class="arrow">↓</div>
+                <img src="/0_CL.png" alt="Transformed 0" />
+            </div>
+        </div>
+        <p>The original image before being passed through the CL is on top, and the outputted image is on the bottom. As we can see, 
+            the images look entirely different after they passed through the convolution. One notable difference is how in both images 
+            the left edge and inside edge are darkened compared to the rest of image, showcasing how convolutions are exceptional for 
+            edge detection.
         </p>
     </div>
   {/if}
   
-  <style>
+ 
+<style>
     .popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: black;
-        color: white;
-        padding: 20px;
-        border: 1px solid white;
-        z-index: 10;
-        width: 800px;
-        height: 600px;
-        overflow-y: auto;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: black;
+      color: white;
+      padding: 20px;
+      border: 1px solid white;
+      z-index: 10;
+      width: 800px;
+      height: 600px;
+      overflow-y: auto;
     }
   
     .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        color: red;
-        border: 1px dotted red;
-        padding: 2px 5px;
-        font-size: 18px;
-        font-weight: bold;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: red;
+      border: 1px dotted red;
+      padding: 2px 5px;
+      font-size: 18px;
+      font-weight: bold;
     }
   
     pre {
-        background-color: #333;
-        padding: 10px;
-        border-radius: 5px;
-        overflow-x: auto;
+      background-color: #333;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
     }
   
     code {
-        color: #00ff00;
+      color: #00ff00;
     }
-  </style>  
+  
+    .images-transformation {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+  
+    .image-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .image-column img {
+      max-width: 250px; /* Adjust this value to ensure images are not too large */
+      margin-bottom: 10px;
+      border: 1px solid white;
+    }
+  
+    .arrow {
+      font-size: 24px;
+      color: white;
+    }
+  </style>

@@ -8,6 +8,7 @@
       <div class="close" on:click={onClose}>✖</div>
       <h2>Hidden Layer 1 Explanation</h2>
       <h3>Code Representation</h3>
+      <p>This is a simple CNN architecture. The code that is not green is where HL1 is relevant.</p>
       <pre>
           <code>
             import torch
@@ -103,45 +104,86 @@
               o4 = [0, 0, 0, 1] * [14] + [1] = [14 + 1] = 15
           </code>
       </pre>
+
+      <h3>Image Transformation</h3>
+        <div class="images-transformation">
+            <div class="image-column">
+                <img src="/6_CL.png" alt="Original 6" />
+                <div class="arrow">↓</div>
+                <img src="/6_HL1.png" alt="Transformed 6" />
+            </div>
+            <div class="image-column">
+                <img src="/0_CL.png" alt="Original 0" />
+                <div class="arrow">↓</div>
+                <img src="/0_HL1.png" alt="Transformed 0" />
+            </div>
+        </div>
+        <p>
+          This output is the result of linearly transforming the output from the CL from 16x32x32 to 128. While the conversion 
+          of the array into an image is unreadable to us, it's readable to our computer.
+        </p>
   </div>
 {/if}
 
 <style>
   .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: black;
-      color: white;
-      padding: 20px;
-      border: 1px solid white;
-      z-index: 10;
-      width: 800px;
-      height: 600px;
-      overflow-y: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border: 1px solid white;
+    z-index: 10;
+    width: 800px;
+    height: 600px;
+    overflow-y: auto;
   }
 
   .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      color: red;
-      border: 1px dotted red;
-      padding: 2px 5px;
-      font-size: 18px;
-      font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: red;
+    border: 1px dotted red;
+    padding: 2px 5px;
+    font-size: 18px;
+    font-weight: bold;
   }
 
   pre {
-      background-color: #333;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
   }
 
   code {
-      color: #00ff00;
+    color: #00ff00;
+  }
+
+  .images-transformation {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  .image-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-column img {
+    max-width: 250px; /* Adjust this value to ensure images are not too large */
+    margin-bottom: 10px;
+    border: 1px solid white;
+  }
+
+  .arrow {
+    font-size: 24px;
+    color: white;
   }
 </style>
