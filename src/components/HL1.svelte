@@ -108,14 +108,14 @@
       <h3>Image Transformation</h3>
         <div class="images-transformation">
             <div class="image-column">
-                <img src="/6_CL.png" alt="Original 6" />
+                <img src="6_CL.png" alt="Original 6" />
                 <div class="arrow">↓</div>
-                <img src="/6_HL1.png" alt="Transformed 6" />
+                <img src="6_HL1.png" alt="Transformed 6" />
             </div>
             <div class="image-column">
-                <img src="/0_CL.png" alt="Original 0" />
+                <img src="0_CL.png" alt="Original 0" />
                 <div class="arrow">↓</div>
-                <img src="/0_HL1.png" alt="Transformed 0" />
+                <img src="0_HL1.png" alt="Transformed 0" />
             </div>
         </div>
         <p>

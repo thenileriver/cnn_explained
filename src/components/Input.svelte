@@ -8,8 +8,8 @@
       <div class="close" on:click={onClose}>✖</div>
       <h2>Input Info</h2>
       <div class="images-container">
-        <img src="/og_6.png" alt="Image 6" class="image-left" />
-        <img src="/og_0.png" alt="Image 0" class="image-right" />
+        <img src="og_6.png" alt="Image 6" class="image-left" />
+        <img src="og_0.png" alt="Image 0" class="image-right" />
       </div>
 
       <p>These two images are from the MNIST dataset, which contains 70,000 28x28 images of handwritten numbers 0 through 9. The image on the left is an

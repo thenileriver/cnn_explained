@@ -103,14 +103,14 @@
         <h3>Image Transformation</h3>
         <div class="images-transformation">
             <div class="image-column">
-                <img src="/og_6.png" alt="Original 6" />
+                <img src="og_6.png" alt="Original 6" />
                 <div class="arrow">↓</div>
-                <img src="/6_CL.png" alt="Transformed 6" />
+                <img src="6_CL.png" alt="Transformed 6" />
             </div>
             <div class="image-column">
-                <img src="/og_0.png" alt="Original 0" />
+                <img src="og_0.png" alt="Original 0" />
                 <div class="arrow">↓</div>
-                <img src="/0_CL.png" alt="Transformed 0" />
+                <img src="0_CL.png" alt="Transformed 0" />
             </div>
         </div>
         <p>The original image before being passed through the CL is on top, and the outputted image is on the bottom. As we can see, 

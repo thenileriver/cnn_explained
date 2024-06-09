@@ -97,20 +97,18 @@
     <h3>Image Transformation</h3>
         <div class="images-transformation">
             <div class="image-column">
-                <img src="/6_HL1.png" alt="Original 6" />
+                <img src="6_HL1.png" alt="Original 6" />
                 <div class="arrow">↓</div>
-                <img src="/6_HL2.png" alt="Transformed 6" />
+                <img src="6_HL2.png" alt="Transformed 6" />
             </div>
             <div class="image-column">
-                <img src="/0_HL1.png" alt="Original 0" />
+                <img src="0_HL1.png" alt="Original 0" />
                 <div class="arrow">↓</div>
-                <img src="/0_HL2.png" alt="Transformed 0" />
+                <img src="0_HL2.png" alt="Transformed 0" />
             </div>
         </div>
-        <p>The original image before being passed through the CL is on top, and the outputted image is on the bottom. As we can see, 
-            the images look entirely different after they passed through the convolution. One notable difference is how in both images 
-            the left edge and inside edge are darkened compared to the rest of image, showcasing how convolutions are exceptional for 
-            edge detection.
+        <p>This output is the result of linearly transforming the output from HL1 from 128 to 64. While the conversion 
+          of the array into an image is unreadable to us, it's readable to our computer.
         </p>
   </div>
 {/if}
