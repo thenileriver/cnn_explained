@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Visualization from './cnn_viz.svelte';
   import AlexNetViz from './AlexNetViz.svelte'; // Import the AlexNetViz component
+  import VGG16Viz from './VGG16Viz.svelte'; // Import the VGG16Viz component
 
   let selectedArchitecture = "AlexNet";
 
@@ -188,7 +189,7 @@
           Output Layer FC8: 1000 neurons corresponding to the 1000 classes in the ImageNet dataset which this mode was trained on with Softmax activation, this layer provides the final predictions<br><br>
         </p>
       {:else if selectedArchitecture === 'VGG16'}
-        <img src="VGG16_architecture.png" alt="VGG16" />
+        <VGG16Viz /> <!-- Display VGG16Viz component for VGG16 -->
       {:else if selectedArchitecture === 'ResNet'}
         <img src="ResNet_architecture.png" alt="ResNet" />
       {:else if selectedArchitecture === 'Inception'}
