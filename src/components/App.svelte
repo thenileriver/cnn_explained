@@ -167,7 +167,26 @@
       <p>Selected Architecture: {selectedArchitecture}</p> <!-- Moved this line above the visualization -->
       {#if selectedArchitecture === 'AlexNet'}
         <AlexNetViz /> <!-- Display AlexNetViz component for AlexNet -->
-        <!-- <img src="AlexNet_architecture.png" alt="AlexNet" /> --> <!-- Commented out static image -->
+        <p>The AlexNet architecture excels at image classification tasks, here's a breakdown on how this architecture makes it one of the best<br><br>
+
+          Input Layer: Starting point where image is fed into the network as a 227x227x3 RGB image<br><br>
+
+          Convolutional Layer 1: With kernel size 11x11, stride 4 and 96 kernels, we start off with a larger kernel to help capture low-level features like edges and textures<br><br>
+
+          Overlapping Max Pooling 1: With pooling size 3x3 and strid 4, this layer reduces the dimensionality of the arrays<br><br>
+
+          Convolutional Layer 2: With kernel size 5x5, paddng 2, and 256 kernels, this layer extracts more features<br><br>
+
+          Overlapping Max Pooling 2: With pooiling size 3x3 and stride 2, we further reduce the dimensionality while maintaining important features<br><br>
+
+          Convolutional Layers 3, 4, 5: All 3 have kernel size 3x3 and padding 1, layer 3 and 4 have 384 kernels while layer 5 has 256 kernels, these 3 layers refine features and increase the depth of the neural network, allowing it to learning more complex features<br><br>
+
+          Overlapping Max Pooling 3: With pooling size 3x4 and stride 2, this final pooling layer reduces dimensionality before being fed into the fully connected layers<br><br>
+
+          Fully Connected Layers (FC6 and FC7): With both layers having 4096 neurons, these layers help learn high-level features that help drive decision making in the model<br><br>
+
+          Output Layer FC8: 1000 neurons corresponding to the 1000 classes in the ImageNet dataset which this mode was trained on with Softmax activation, this layer provides the final predictions<br><br>
+        </p>
       {:else if selectedArchitecture === 'VGG16'}
         <img src="VGG16_architecture.png" alt="VGG16" />
       {:else if selectedArchitecture === 'ResNet'}
