@@ -17,7 +17,7 @@
   ];
 
   let svgWidth = 800;
-  let svgHeight = 600;
+  let svgHeight = 400;  // Adjust the height here
 
   let showInputPopup = false;
   let showConvolutionPopup = false;
@@ -132,7 +132,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 600px; /* Adjust the height as needed */
+    height: 400px; /* Adjust the height as needed */
     font-size: 1.2rem;
   }
 
@@ -155,8 +155,9 @@
 
 <div class="visualization-container">
   <Slideshow />
+  <p>Click on any of the squares for detailed info on that layer!</p>
   <div class="visualization">
-    <svg id="cnn-vis" width="100%" height="600"></svg>
+    <svg id="cnn-vis" width="100%" height="400"></svg> <!-- Adjusted height here -->
   </div>
 </div>
 

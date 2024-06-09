@@ -41,9 +41,9 @@
   }
 
   .container {
-    max-width: 800px;
+    max-width: 1000px; /* Adjusted maximum width */
     margin: 0 auto;
-    padding: 50px 20px; /* Adjust padding as needed */
+    padding: 20px; /* Adjusted padding */
   }
 
   h1 {
@@ -96,7 +96,7 @@
 
   .visualization img {
     max-width: 100%;
-    max-height: 100%;
+    height: auto; /* Maintain aspect ratio */
   }
 
   .cool-title {
