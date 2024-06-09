@@ -5,18 +5,22 @@
 
   const slides = [
     {
+      title: "Base Image",
       image: "President_Barack_Obama.jpg", // Update with the correct path
       text: "Images are viewed by computers as arrays in the following format: (height, width, RGB values). Most images we take are extremely complex, such as this photo of President Obama, as not only is this image in HD, but it's also in color. If our images are too complex, it slows down training time tremendously, so it's our goal to reduce the complexity of images before we feed them into our Convolutional Neural Network (CNN). We can do this by making the images go through a series of transformations."
     },
     {
+      title: "Grayscale Transformation",
       image: "grayscale_image.jpg", // Update with the correct path
       text: "We can tremendously reduce the complexity of the image by converting it from RGB to grayscale. This simple transformation reduces the complexity by a factor of 3! In grayscale images, each pixel is represented by a single intensity value rather than three color values, thus simplifying the data while retaining essential information about the structure and texture of the image."
     },
     {
+      title: "Gaussian Blur",
       image: "gaussian_blur.jpg", // Update with the correct path
       text: "The next transformation is called a Gaussian blur. This technique smooths the image by reducing noise and detail. Mathematically, it involves applying a Gaussian function to the image. The Gaussian function is defined as: \n\nG(x, y) = (1 / (2πσ²)) * exp(- (x² + y²) / (2σ²))\n\nwhere x and y are the coordinates of the pixel, and σ (sigma) is the standard deviation of the Gaussian distribution. The effect of this function is to average the pixel values in a neighborhood, with closer pixels given more weight, resulting in a blurred image. This helps in reducing high-frequency noise and is particularly useful in pre-processing steps for further analysis."
     },
     {
+      title: "Canny Edge Detection",
       image: "canny_edges.jpg", // Update with the correct path
       text: "If we know that edges are the most important feature, we can transform our images to reflect that using the Canny edge detection algorithm. This algorithm detects the boundaries within an image by looking for areas where there is a rapid change in intensity. The process involves several steps: applying a Gaussian filter to smooth the image, finding the intensity gradient of the image, applying non-maximum suppression to remove spurious response to edge detection, and using double thresholding to detect strong and weak edges, followed by edge tracking by hysteresis. This results in an image where the edges are highlighted, making it easier for our CNN to focus on the most relevant features."
     },
@@ -38,6 +42,7 @@
 <style>
   .slideshow {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 500px;
@@ -47,7 +52,7 @@
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    padding: 0 60px; /* Add padding to the container to avoid text overlap */
+    padding: 20px 60px; /* Add padding to the container to avoid text overlap */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
@@ -66,11 +71,18 @@
     padding: 20px;
     width: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: left;
     font-size: 16px;
     line-height: 1.6;
+  }
+
+  .slide-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
   .arrow {
@@ -106,6 +118,7 @@
   <div class="slide">
     <img src={slides[currentSlideIndex].image} alt="Slide Image" />
     <div class="slide-content">
+      <div class="slide-title">{slides[currentSlideIndex].title}</div>
       <p>{slides[currentSlideIndex].text}</p>
     </div>
   </div>
