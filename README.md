@@ -1,4 +1,4 @@
-# DSC 106 Final Project: CNN Visualizations
+# DSC 106 Final Project: CNN Visualization
 
 Created by Neil Sharma, Samuel Mai and Eduardo Spiegel
 
